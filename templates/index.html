@@ -1,0 +1,99 @@
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+    h1 {
+        text-align: center;
+    }
+    .list_of_contacts {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .list_of_contacts p {
+        margin-right: 10px;
+    }
+
+    .list_of_contacts a {
+        margin-left: 18px; 
+        font-size: 20px;
+        color: red;
+    }
+
+    .add-contact-box {
+        border: 2px solid #ccc;
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #135c2c;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-contact-box input[type="text"],
+    .add-contact-box input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .add-contact-box input[type="submit"] {
+        background-color: #f4f81b;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .add-contact-box input[type="submit"]:hover {
+        background-color: #0e5812;
+        color: white;
+    }
+</style>
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Contacts</title>
+{% endblock %}
+
+{% block body %}
+<div class="Contacts">
+    <h1>Contacts List</h1>
+
+    {% if contacts|length < 1 %}
+        <h5>No contacts available</h5>
+    {% else %}
+        
+        <ul>
+            <li class="list_of_contacts">
+                <h1>Name</h1>
+                <h1>Number</h1>
+                <h1>   </h1>
+            </li>
+            {% for contact in contacts %}
+                <li class="list_of_contacts">
+                    <p>{{ contact.first_name }} {{ contact.last_name }}</p>
+                    <p>{{ contact.number }}</p>
+                    <a href="/delete/{{ contact.id }}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="add-contact-box">
+        <h3>Add New Contact</h3>
+        <form action="/" method="POST">
+            <input type="text" name="first_name" id="first_name" placeholder="Enter First Name">
+            <input type="text" name="last_name" id="last_name" placeholder="Enter Last Name">
+            <input type="number" name="number" id="number" placeholder="Enter Phone Number">
+            <input type="submit" value="Add Contact">
+        </form>
+    </div>
+</div>
+{% endblock %}
